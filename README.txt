@@ -1,0 +1,1 @@
+1. There are 6 primitive type as Number, String, boolean, null, undefined, Symbol(ES6) in javascript.
