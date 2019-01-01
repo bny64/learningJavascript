@@ -7,4 +7,4 @@ const multiline = `line1
 line2`;
 
 console.log(multiline);
-//backtick can accept multiline
+//backtick能作多种线条
