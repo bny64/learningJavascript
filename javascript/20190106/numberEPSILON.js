@@ -4,4 +4,4 @@ while(true){
     if (Math.abs(n - 0.3) < Number.EPSILON) break; 
 }
 
-console.log(`Stopped at ${n}`);
+console.log(`Stopped at ${n}`); 

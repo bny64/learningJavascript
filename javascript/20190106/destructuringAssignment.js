@@ -15,7 +15,7 @@ console.log(x,y);
 //확산 연산자를 통해서도 해체 가능
 let [d,e, ...rest] = arr;
 console.log(d,e, rest);
-//1,2, [3,4,5]
+//1,2, [3,4,5] 
 
 let f = 5, g = 10;
 [f, g] = [g, f];

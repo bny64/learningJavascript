@@ -13,5 +13,5 @@ const obj2 = {
 const itemCheck = obj.itemCode || "no itemCode";
 const itemCheck2 = obj2.itemCode || "no itemCode";
 
-console.log(itemCheck, itemCheck2);
+console.log(itemCheck, itemCheck2); 
 //100, 'no itemCode'
