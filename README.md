@@ -6,3 +6,6 @@
 
 4. 함수 선언식과 표현식의 차이점.
 https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/
+
+5. let, const, var 차이
+https://gist.github.com/LeoHeo/7c2a2a6dbcf80becaaa1e61e90091e5d
