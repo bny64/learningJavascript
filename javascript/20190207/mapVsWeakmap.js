@@ -19,7 +19,7 @@ console.log(wm.get(k2)); //'undefined'
 console.log(map.get({a:1})); //'undefined'
 console.log(wm.get({b:2})); //'undefined'
 
-//map, weakmap 둘다 키:값 이 지워지지만
+//map, weakmap이 gc에 의해 지워지면 둘다 키:값 이 지워지지만
 //map은 강한참조 이기 때문에 값이 남아 foreach로 키:값을 찾을 수 있다.
 map.forEach(function (val, key) {
     console.log(key, val); // k1 {a: 1}
