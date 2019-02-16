@@ -1,4 +1,4 @@
-
+//2019.02.16 14:24
 class Vehicle{
     constructor(){
         this.passengers = [];
@@ -29,3 +29,9 @@ c.addPassenger('Cameron');
 c.passenger;
 v.deployAirbags();
 c.deployAirbags();
+
+class Motorcycle extends Vehicle{};
+const c = new Car();
+const m = new Motorcycle();
+console.log(c instanceof Car);
+console.log(c instanceof Vehicle);
