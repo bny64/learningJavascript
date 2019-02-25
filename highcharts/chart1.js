@@ -3,7 +3,8 @@ chartCallback(chartData1);
 function chartCallback(result){
 	
     var data = result.record1;
-    
+    var chartObject = null;
+
     var chartPosition = $("#chart1");
     var chartData = [];
     var basePrice = 0;
