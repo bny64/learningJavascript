@@ -95,7 +95,7 @@ function chartCallback(result){
             tooltip : {
                 enabled : false
             },
-            xAxis : {
+            xAxis : {                
                 tickInterval : 1000*60*60*2,
                 labels : {
                     formatter : function(){

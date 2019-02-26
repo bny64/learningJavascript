@@ -29,15 +29,25 @@ function chartCallback(result){
         data:{
             dateFormat:'YYYY/mm'
         },
-        rangeSelector : {
-            enabled : false
+        rangeSelector: {
+            enabled:false
         },
         navigator : {
-            enabled : true
-        },
+			height:25,
+			enabled : true,
+			outlineColor: '#808492',
+			xAxis : {
+				gridLineWidth:0,
+				labels:{
+					enabled:false
+				}
+			}
+		},
         scrollbar : {
-            enabled : false
-        },
+			enabled : true,
+			height : 0,
+			margin:0
+		},
         credits : {
             enabled : false
         },
@@ -51,16 +61,36 @@ function chartCallback(result){
                 labels:{
                     format:'{value}'
                 },
-                showLastLabel:true
+                showLastLabel:true,
+                
             }
         ],
         xAxis:[
             {
+                dateTimeLabelFormats: {                    
+                    day: '%m.%d',
+				    week: '%m.%d',
+				    month: '%Y.%m'
+                },
                 type:'datetime',
-                /* min:startDate,
-                max:endDate, */
+                min:startDate,
+                max:endDate,
                 width:"95%",
-                
+                /* events: {
+                    afterSetExtremes: function(e) {
+                        var maxDistance = 3 * 30 * 24 * 3600 * 1000; //8 months time
+                        var xaxis = this;
+                        if ((e.max - e.min) > maxDistance) {
+                            var min = e.max - maxDistance;
+                            var max = e.max;
+                            window.setTimeout(function() {
+                                xaxis.setExtremes(min, max);
+                            }, 1);
+                        }
+                    }
+                }, */
+                ordinal:true,
+                range: 3*30*24*60*60*1000, //초기 화면 보여줄 때 범위
             }
         ],
         series:[
