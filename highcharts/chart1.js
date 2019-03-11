@@ -62,7 +62,7 @@ function chartCallback(result){
     var chart = {
             chart : {
                 renderTo : chartPosition[0],
-                spacingRight:50,
+                spacingRight:40,
                 spacingBottom:0,
                 spacingTop:0,
                 spacingLeft:0,
