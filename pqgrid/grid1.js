@@ -21,4 +21,10 @@ function makeGrid1(){
         scrollModel : {autoFit:true},
     });
 
+    grid1.find("div.pq-scrollbar-vert").pqScrollBar().pqScrollBar({
+        scroll: function( event, ui ) {
+            debugger;
+        }
+    });
+
 }
