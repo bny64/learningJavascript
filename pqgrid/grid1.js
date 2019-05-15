@@ -32,21 +32,26 @@ function makeGrid1(){
 
     $(function () {
         var columns = [
-            { title: "Order ID", dataIndx: "OrderID" },
-            { title: "Customer Name", dataIndx: "CustomerName" },
-            { title: "Product Name", dataIndx: "ProductName" },
-            { title: "Unit Price", dataIndx: "UnitPrice", dataType: 'float', format: '$#,###.00' },
-            { title: "Quantity", dataIndx: "Quantity", dataType: 'integer' },
-		    { title: "Order Date", dataIndx: "OrderDate" },
-		    { title: "Required Date", dataIndx: "RequiredDate" },
-		    { title: "Shipped Date", dataIndx: "ShippedDate" },
-            { title: "ShipCountry", dataIndx: "ShipCountry" },
-            { title: "Freight", align: "right", dataIndx: "Freight" },
-            { title: "Shipping Name", dataIndx: "ShipName" },
-            { title: "Shipping Address", dataIndx: "ShipAddress" },
-            { title: "Shipping City", dataIndx: "ShipCity" },
-            { title: "Shipping Region", dataIndx: "ShipRegion" },
-            { title: "Shipping Postal Code", dataIndx: "ShipPostalCode", minWidth: 150 }
+            { title: "Order ID", minWidth: 130, dataIndx: "OrderID", dataType: "integer",
+                filter: { type: 'textbox', condition: "between"}
+            },
+            { title: "Customer Name", dataIndx: "CustomerName", width:120,
+                filter: { type: "textbox", condition: 'begin', listeners: ['keyup']
+                }
+             },
+            { title: "Product Name", dataIndx: "ProductName", width:120 },
+            { title: "Unit Price", dataIndx: "UnitPrice", dataType: 'float', format: '$#,###.00', width:120 },
+            { title: "Quantity", dataIndx: "Quantity", dataType: 'integer' , width:120},
+		    { title: "Order Date", dataIndx: "OrderDate", width:120 },
+		    { title: "Required Date", dataIndx: "RequiredDate" , width:120},
+		    { title: "Shipped Date", dataIndx: "ShippedDate" , width:120},
+            { title: "ShipCountry", dataIndx: "ShipCountry", width:120 },
+            { title: "Freight", align: "right", dataIndx: "Freight" , width:120},
+            { title: "Shipping Name", dataIndx: "ShipName" , width:120},
+            { title: "Shipping Address", dataIndx: "ShipAddress", width:120 },
+            { title: "Shipping City", dataIndx: "ShipCity", width:120 },
+            { title: "Shipping Region", dataIndx: "ShipRegion" , width:120},
+            { title: "Shipping Postal Code", dataIndx: "ShipPostalCode", width:120 }
 		];
         var dataModel = {
             location: "remote",
@@ -56,15 +61,16 @@ function makeGrid1(){
         }
 
         $("#dndgrid").pqGrid({
+            width:"auto",
             height: 500,
             autoRow: true,
             dataModel: dataModel,
-            complete: function () {
-                this.flex();
-            },
-       
-            //pageModel: { type: 'local', rPP: 20, rPPOptions: [1, 10, 20, 30, 40, 50, 100] },
-            colModel: columns,                        
+            colModel: columns,
+            scrollModel : {autofit:true},
+            filterModel : {on:true, mode:'AND', header:true},            
+            resizable: true,
+            editable: true,
+            pageModel: { type: 'local', rPP: 20, rPPOptions: [1, 10, 20, 30, 40, 50, 100] },                                    
             title: "Shipping Orders"            
         });        
     });
