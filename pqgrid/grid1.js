@@ -62,7 +62,7 @@ function makeGrid1(){
 
         $("#dndgrid").pqGrid({
             width:"auto",
-            height: 500,
+            height: 500, 
             autoRow: true,
             dataModel: dataModel,
             colModel: columns,
