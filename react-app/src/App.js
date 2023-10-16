@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import TOC from "./components/TOC";
 import ReadContent from "./components/ReadContent";
 import CreateContent from "./components/CreateContent";
+import UpdateContent from "./components/UpdateContent";
 import Subject from "./components/Subject";
 import Control from "./components/Control";
 class App extends Component {
@@ -21,7 +22,17 @@ class App extends Component {
       ],
     };
   }
-  render() {
+  getReadContent() {
+    let i = 0;
+    while (i < this.state.contents.length) {
+      let data = this.state.contents[i];
+      if (data.id === this.state.selected_conten_id) {
+        return data;
+      }
+      i++;
+    }
+  }
+  getContent() {
     let _title,
       _desc,
       _article = null;
@@ -30,17 +41,13 @@ class App extends Component {
       _desc = this.state.welcome.desc;
       _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
     } else if (this.state.mode === "read") {
-      let i = 0;
-      while (i < this.state.contents.length) {
-        let data = this.state.contents[i];
-        if (data.id === this.state.selected_conten_id) {
-          _title = data.title;
-          _desc = data.desc;
-          break;
-        }
-        i++;
-      }
-      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
+      let _content = this.getReadContent();
+      _article = (
+        <ReadContent
+          title={_content._title}
+          desc={_content._desc}
+        ></ReadContent>
+      );
     } else if (this.state.mode === "create") {
       _article = (
         <CreateContent
@@ -56,7 +63,27 @@ class App extends Component {
           }.bind(this)}
         ></CreateContent>
       );
+    } else if (this.state.mode === "update") {
+      let _content = this.getReadContent();
+      _article = (
+        <UpdateContent
+          data={_content}
+          onSubmit={function (_title, _desc) {
+            // add content to this.state.contents
+            this.max_content_id++;
+            this.setState({
+              contents: [
+                ...this.state.contents,
+                { id: this.max_content_id, title: _title, desc: _desc },
+              ],
+            });
+          }.bind(this)}
+        ></UpdateContent>
+      );
     }
+    return _article;
+  }
+  render() {
     return (
       <div className="App">
         {
@@ -84,7 +111,7 @@ class App extends Component {
             console.log(this.state.mode);
           }.bind(this)}
         ></Control>
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
