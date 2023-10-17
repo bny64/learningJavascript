@@ -44,8 +44,8 @@ class App extends Component {
       let _content = this.getReadContent();
       _article = (
         <ReadContent
-          title={_content._title}
-          desc={_content._desc}
+          title={_content.title}
+          desc={_content.desc}
         ></ReadContent>
       );
     } else if (this.state.mode === "create") {
@@ -68,14 +68,15 @@ class App extends Component {
       _article = (
         <UpdateContent
           data={_content}
-          onSubmit={function (_title, _desc) {
+          onSubmit={function (_id, _title, _desc) {
             // add content to this.state.contents
-            this.max_content_id++;
             this.setState({
-              contents: [
-                ...this.state.contents,
-                { id: this.max_content_id, title: _title, desc: _desc },
-              ],
+              contents: this.state.contents.map((e) => {
+                if (e.id === _id) {
+                  return { id: _id, title: _title, desc: _desc };
+                }
+                return e;
+              }),
             });
           }.bind(this)}
         ></UpdateContent>
@@ -105,9 +106,33 @@ class App extends Component {
         ></TOC>
         <Control
           onChangeMode={function (_mode) {
-            this.setState({
-              mode: _mode,
-            });
+            if (_mode === "delete") {
+              if (window.confirm('삭제하시겠습니까?')) {
+                this.setState({
+                  mode: "welcome",
+                  contents: this.state.contents.filter((e) => {
+                    return e.id !== this.state.selected_conten_id;
+                  }),
+                });
+                /* let _contents = Array.from(this.state.contents);
+                let i = 0;
+                while (i < this.state.contents.length) {
+                  if (_contents[i].id === this.state.selected_conten_id) {
+                    _contents.splice();
+                  }
+                  i++;
+                }
+                this.setstate({
+                  mode: "welcome",
+                  contents: _contents,
+                }); */
+                alert("deleted!");
+              }
+            } else {
+              this.setState({
+                mode: _mode,
+              });
+            }
             console.log(this.state.mode);
           }.bind(this)}
         ></Control>
