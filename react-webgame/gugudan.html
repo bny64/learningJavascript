@@ -29,12 +29,13 @@
 
         onSubmit = (e) => {
           e.preventDefault();
+          const beforeValue = this.state.value;
           if (
             parseInt(this.state.value) ===
             this.state.first * this.state.second
           ) {
             this.setState({
-              result: "정답",
+              result: "정답" + beforeValue,
               first: Math.ceil(Math.random() * 9),
               second: Math.ceil(Math.random() * 9),
               value: "",
@@ -45,11 +46,14 @@
               value: "",
             });
           }
+          this.input.focus();
         };
 
         onChange = (e) => {
           this.setState({ value: e.target.value });
         };
+
+        input;
 
         // 컨텐츠
         render() {
@@ -60,6 +64,9 @@
               </div>
               <form onSubmit={this.onSubmit}>
                 <input
+                  ref={(eventTarget) => {
+                    this.input = eventTarget;
+                  }}
                   type="number"
                   value={this.state.value}
                   onChange={this.onChange}
