@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
   name: "wordrelay-setting",
@@ -35,15 +36,21 @@ module.exports = {
             ],
             "@babel/preset-react",
           ], //플러그인들의 모음
-          plugins: [],
+          plugins: ["react-refresh/babel"],
         },
       },
     ],
   },
-  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
+  plugins: [new RefreshWebpackPlugin()],
 
   output: {
     path: path.join(__dirname, "dist"),
     filename: "app.js",
+    publicPath: "/dist/",
   }, //출력
+  devServer: {
+    devMiddleware: { publicPath: "/dist/" }, //webpack이 실제 생성하는 경로를 설정(output에서 webback으로 build한 하나의 파일이 dist 경로에 생성되기 때문에)
+    static: { directory: path.resolve(__dirname) }, //실제 정적 파일의 경로를 설정(ex. index.html 등)
+    hot: true,
+  },
 };
