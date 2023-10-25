@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import Try from './Try';
+import Try from './Try-hooks';
 
 function getNumbers() { // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
   const candidate = [1,2,3,4,5,6,7,8,9];
@@ -14,7 +14,7 @@ function getNumbers() { // 숫자 네 개를 겹치지 않고 랜덤하게 뽑�
 class NumberBaseball extends Component {
   state = {
     result: '',
-    value: '',
+    value: '', 
     answer: getNumbers(), // ex: [1,3,5,7]
     tries: [], // push 쓰면 안 돼요
   };
