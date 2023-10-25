@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import MainBoard from "./MainBoard";
+import Board from "./Board";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <MainBoard />
+      <Board />
     </div>
   );
 }
