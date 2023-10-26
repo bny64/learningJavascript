@@ -33,7 +33,15 @@ class RSP extends Component {
 
   //컴포넌트가 첫 렌더링 된 후, 여기에 비동기 요청을 많이 한다.
   componentDidMount() {
-    this.interval = setInterval(changeHand, 100);
+    this.interval = setInterval(this.changeHand, 100);
+  }
+
+  //리렌더링 후
+  componentDidUpdate() {}
+
+  //컴포넌트가 제거되기 직전, 비동기 요청 정리를 많이 한다.
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   changeHand = () => {
@@ -53,25 +61,21 @@ class RSP extends Component {
     }
   };
 
-  //리렌더링 후
-  componentDidUpdate() {}
-
-  //커포넌트가 제거되기 직전, 비동기 요청 정리를 많이 한다.
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  a() {
+    return () => {};
   }
 
-  onClickBtn = (choice) => {
+  onClickBtn = (choice) => () => {
     const { imgCoord } = this.state;
     clearInterval(this.interval);
     const myScore = scores[choice];
-    const cpuScore = score[computerChoice(imgCoords)];
+    const cpuScore = scores[computerChoice(imgCoord)];
     const diff = myScore - cpuScore;
     if (diff === 0) {
       this.setState({
         result: "비겼습니다.!",
       });
-    } else if ([-1.2].includes(diff)) {
+    } else if ([-1, 2].includes(diff)) {
       this.setState((prevState) => {
         return {
           result: "이겼습니다.!",
@@ -88,7 +92,7 @@ class RSP extends Component {
     }
     setTimeout(() => {
       this.interval = setInterval(this.changeHand, 100);
-    }, 2000);
+    }, 1000);
   };
 
   render() {
