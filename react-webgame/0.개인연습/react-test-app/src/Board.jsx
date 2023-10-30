@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Square from "./Square";
 
 function calculateWinner(squares) {
