@@ -1,15 +1,17 @@
-import React, { Component, useCallback, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer } from "react";
 import Table from "./Table";
 
 const initialState = {
   winner: "",
   turn: "O",
   tableData: [Array(3).fill(""), Array(3).fill(""), Array(3).fill("")],
+  recentCell: [-1, -1],
 };
 
 export const SET_WINNER = "SET_WINNER";
 export const CLICK_CELL = "CLICK_CELL";
-export const CHANGE_TURN = "SET_TURN";
+export const CHANGE_TURN = "CHANGE_TURN";
+export const RESET_GAME = "RESET_GAME";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,12 +28,23 @@ const reducer = (state, action) => {
       return {
         ...state,
         tableData,
+        recentCell: [action.row, action.cell],
       };
     case CHANGE_TURN:
       return {
         ...state,
         turn: state.turn === "O" ? "X" : "O",
       };
+
+    case RESET_GAME:
+      return {
+        ...state,
+        turn: "O",
+        tableData: [Array(3).fill(""), Array(3).fill(""), Array(3).fill("")],
+        recentCell: [-1, -1],
+      };
+    default:
+      return state;
   }
 };
 
@@ -46,9 +59,68 @@ const TickTacToe = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const [row, cell] = state.recentCell;
+    if (row < 0) return;
+    let win = false;
+    if (
+      state.tableData[row][0] === state.turn &&
+      state.tableData[row][1] === state.turn &&
+      state.tableData[row][2] === state.turn
+    ) {
+      win = true;
+    }
+    if (
+      state.tableData[0][cell] === state.turn &&
+      state.tableData[1][cell] === state.turn &&
+      state.tableData[2][cell] === state.turn
+    ) {
+      win = true;
+    }
+    if (
+      state.tableData[0][0] === state.turn &&
+      state.tableData[1][1] === state.turn &&
+      state.tableData[2][2] === state.turn
+    ) {
+      win = true;
+    }
+    if (
+      state.tableData[0][2] === state.turn &&
+      state.tableData[1][1] === state.turn &&
+      state.tableData[2][0] === state.turn
+    ) {
+      win = true;
+    }
+    console.log(win, state.row, state.cell, state.tableData, state.turn);
+    if (win) {
+      dispatch({ type: SET_WINNER, winner: state.turn });
+      dispatch({ type: RESET_GAME });
+      //무승부
+    } else {
+      let all = true; // => 무승부라는 뜻
+      state.tableData.forEach((row) => {
+        row.forEach((cell) => {
+          //하나라도 차지 않은 칸이 있다면 무승부가 아니다.
+          if (!cell) {
+            all = false;
+          }
+        });
+      });
+      if (all) {
+        dispatch({ type: SET_WINNER, winner: null });
+        dispatch({ type: RESET_GAME });
+      } else {
+        dispatch({ type: CHANGE_TURN });
+      }
+    }
+  }, [state.recentCell]);
   return (
     <>
-      <Table onClick={onClickTable} tableData={state.tableData} dispatch={dispatch} />
+      <Table
+        onClick={onClickTable}
+        tableData={state.tableData}
+        dispatch={dispatch}
+      />
       {state.winner && <div>{state.winner}님의 승리</div>}
     </>
   );

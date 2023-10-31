@@ -4,7 +4,7 @@ import Tr from "./Tr";
 const Table = ({ onClick, tableData, dispatch }) => {
   return (
     <>
-      <table onClick={onClick}>
+      <table>
         {Array(tableData.length)
           .fill()
           .map((tr, i) => (
