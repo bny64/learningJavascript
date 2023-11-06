@@ -1,13 +1,3 @@
-/* 
-
-09:30 - 11:00
-08:15 - 08:55
-12:42 -  12:50
-contextApi
-reducer
-useTransition
-*/
-
 import React, { useReducer, createContext, useMemo } from "react";
 import Table from "./Table";
 import Form from "./Form";
@@ -85,19 +75,19 @@ const reducer = (state, action) => {
     case OPEN_CELL: {
       const tableData = [...state.tableData];
       tableData[action.row] = [...state.tableData[action.row]];
-      tableData.forEach((row, i)=>{
+      tableData.forEach((row, i) => {
         tableData[i] = [...state.tableData[i]];
       });
       const checkAround = (row, cell) => {
         let around = [];
-        if(tableData[action.row] - 1){
+        if (tableData[action.row] - 1) {
           around = around.concat(
             tableData[action.row - 1][action.cell - 1],
             tableData[action.row - 1][action.cell],
             tableData[action.row - 1][action.cell + 1]
-          )
+          );
         }
-      }
+      };
       tableData[action.row][action.cell] = CODE.OPENED;
       return {
         ...state,
