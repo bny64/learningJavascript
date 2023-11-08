@@ -44,9 +44,9 @@ module.exports = {
   plugins: [new RefreshWebpackPlugin()],
 
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, "dist"), //파일이 저장될 디렉터리
     filename: "app.js",
-    publicPath: "/dist/",
+    publicPath: "/dist/", //번들된 파일에 대한 URL
   }, //출력
   devServer: {
     devMiddleware: { publicPath: "/dist/" }, //webpack이 실제 생성하는 경로를 설정(output에서 webback으로 build한 하나의 파일이 dist 경로에 생성되기 때문에)
